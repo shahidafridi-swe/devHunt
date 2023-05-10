@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Project, Tag
-
+from .form import ProjectForm
 
 def projects(request):
     projects = Project.objects.all()
@@ -16,3 +16,9 @@ def project(request, pk):
         'project': project,
     }
     return render(request, 'projects/single-project.html', context)
+
+def createProject(request):
+    form = ProjectForm()
+    context = {'form': form}
+    return render(request, 'projects/project-form.html', context)
+
