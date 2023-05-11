@@ -21,6 +21,7 @@
                 <th>
                     <a class="btn btn-success" href="{% url 'single-project' project.id %}">VIEW</a>
                     <a class="btn btn-warning" href="{% url 'update-project' project.id %}">UPDATE</a>
+                    <a class="btn btn-danger" href="{% url 'delete-project' project.id %}">DELETE</a>
                 </th>
             </tr>
         {% endfor %}

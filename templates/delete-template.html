@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p>Are you sure? You want to delete {{ object.title }}.</p>
+
+
+<form action="" method='POST'>
+    {% csrf_token %}
+    <a class= "btn btn-success" href="{% url 'projects' %}">Back</a>
+    <input class="btn btn-danger" type="submit" value="Confirm Delete">
+
+
+</form>
+
+
+{% endblock content %}
