@@ -18,7 +18,10 @@
                 <th>{{project.vote_total}}</th>
                 <th>{{project.vote_ratio}}</th>
                 <th>{{project.created_at}}</th>
-                <th><a class="btn btn-success" href="{% url 'single-project' project.id %}">VIEW</a></th>
+                <th>
+                    <a class="btn btn-success" href="{% url 'single-project' project.id %}">VIEW</a>
+                    <a class="btn btn-warning" href="{% url 'update-project' project.id %}">UPDATE</a>
+                </th>
             </tr>
         {% endfor %}
     </table>
