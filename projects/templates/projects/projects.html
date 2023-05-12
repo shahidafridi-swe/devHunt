@@ -2,6 +2,48 @@
 
 {% block content %}
 
+
+<div class=" bg-success-subtle">
+    <div class='container text-center p-5'>
+        <h2>SEARCH FOR <span class='text-success' style="font-weight: 800;">PROJECTS</span></h2>        
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search By Project Title" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn  btn-success" type="button" id="button-addon2">Search</button>
+        </div>
+          
+    </div>
+
+</div>
+<div class="container mt-3">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        {% for project in projects %}
+        <div class="col ">
+            <a class="text-decoration-none " href="{% url 'single-project' project.id %}" >
+          <div class="card h-100 ">
+            <img src="{{project.featured_image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="text-success card-title ">{{project.title}}</h5>
+              <p><a class="text-decoration-none" href="#">By Shahid Afridi</a></p>
+              <p class="">
+                <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
+                Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
+              </p>
+            </div>
+              </a>
+
+            <div class="card-footer">
+                {% for tag in project.tags.all %}
+                <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{tag.name}}</small>
+                {% endfor %}
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
 <h1>These are the projects</h1>
 
     <table>
@@ -26,5 +68,7 @@
             </tr>
         {% endfor %}
     </table>
+    
+    
    
 {% endblock content %}
