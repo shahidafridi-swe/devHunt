@@ -24,7 +24,7 @@
             <img src="{{project.featured_image.url}}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="text-success card-title ">{{project.title}}</h5>
-              <p><a class="text-decoration-none" href="#">By Shahid Afridi</a></p>
+              <p><a class="text-decoration-none" href="#">By {{ project.owner.name }}</a></p>
               <p class="">
                 <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
                 Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
