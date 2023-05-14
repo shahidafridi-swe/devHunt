@@ -1,0 +1,95 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container text-center mt-3">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-4">
+            <div class="card text-center mb-3" >
+                <div class="card-body bg-light">
+                    <img src="{{ profile.profile_image.url}}" class="rounded-circle w-75"  alt="Avatar" />
+                    <hr>
+                    <h3 class="card-title text-success">{{profile.name}}</h3>
+                    <h6 class="card-text">{{ profile.short_intro }}</h6>
+                    <p class="card-text">{{profile.location}}</p>
+                    <hr>
+
+                    <a href="#" class='text-dark mx-1'><i class="fa fa-github" style="font-size:36px"></i></a>
+                    <a href="#" class='text-primary mx-1'><i class="fa fa-twitter" style="font-size:36px"></i></a>
+                    <a href="#" class='text-danger mx-1'><i class="fa fa-youtube-play" style="font-size:36px"></i></i></a>
+                    <a href="#" class='text-primary mx-1'><i class="fa fa-linkedin" style="font-size:36px"></i></a>
+                    <a href="#" class='text-dark mx-1'><i class="fa fa-globe" style="font-size:36px"></i></i></a>
+                    
+                    <hr>
+                    <a href="#" class="btn btn-success">Send Message</a>
+                </div>
+              </div>     
+          </div>
+
+
+            <div class="col-12 col-sm-12 col-md-8 ps-5 text-start">
+                {% comment %} about part {% endcomment %}
+                <div>
+                    <h3>ABOUT ME</h3>
+                    <p>{{ profile.bio}}</p>
+                </div>
+                
+                <div>
+                    <h3>SKILLS</h3>
+                    {% for skill in topskills %}
+                    <div class="row">
+                        <div class="col-2">
+                            <h5>{{ skill.name }}</h5>
+                        </div>
+                        <div class="col-10">
+                            <p>{{ skill.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <h3>OTHER SKILLS</h3>
+                    {% for skill in otherskills %}
+                        <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{skill.name}}</small>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <h3>PROJECTS</h3>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                        {% for project in profile.project_set.all %}
+                        
+                        <div class="col">
+                            <a class="text-decoration-none " href="{% url 'single-project' project.id %}" >
+                                <div class="card h-100 ">
+                                    <img src="{{project.featured_image.url}}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-success card-title ">{{project.title}}</h5>
+                                        <p><a class="text-decoration-none" href="{% url 'profile' project.owner.id %}">By {{ project.owner.name }}</a></p>
+                                        <p class="">
+                                            <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
+                                            Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
+                                        </p>
+                                    </div>
+                        
+                                    <div class="card-footer">
+                                        {% for tag in project.tags.all|slice:"3" %}
+                                            <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{tag.name}}</small>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

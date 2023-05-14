@@ -24,7 +24,7 @@
             <img src="{{project.featured_image.url}}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="text-success card-title ">{{project.title}}</h5>
-              <p><a class="text-decoration-none" href="#">By {{ project.owner.name }}</a></p>
+              <p><a class="text-decoration-none"  href="{% url 'profile' project.owner.id %}">By {{ project.owner.name }}</a></p>
               <p class="">
                 <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
                 Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
@@ -44,30 +44,6 @@
 
     </div>
 </div>
-<h1>These are the projects</h1>
-
-    <table>
-        <tr class="text-center">
-            <th>Project</th>
-            <th>Votes</th>
-            <th>Vote Ratio</th>
-            <th>Created</th>
-            <th>Action</th>
-        </tr>
-        {% for project in projects %}
-            <tr class="border p-2">
-                <th>{{project.title}}</th>
-                <th>{{project.vote_total}}</th>
-                <th>{{project.vote_ratio}}</th>
-                <th>{{project.created_at}}</th>
-                <th>
-                    <a class="btn btn-success" href="{% url 'single-project' project.id %}">VIEW</a>
-                    <a class="btn btn-warning" href="{% url 'update-project' project.id %}">UPDATE</a>
-                    <a class="btn btn-danger" href="{% url 'delete-project' project.id %}">DELETE</a>
-                </th>
-            </tr>
-        {% endfor %}
-    </table>
     
     
    

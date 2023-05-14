@@ -19,7 +19,7 @@
 
         {% for profile in profiles %}
         <div class="col ">
-            <a class="text-decoration-none " href="#" >
+            <a class="text-decoration-none " href="{% url 'profile' profile.id %}" >
           <div class="card h-100 ">
             <div class='card-header'>
                 <div class='d-flex align-items-center'>
@@ -41,7 +41,7 @@
             </a>
 
             <div class="card-footer">
-                {% for skill in profile.skill_set.all %}
+                {% for skill in profile.skill_set.all|slice:"3" %}
                 <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{skill.name}}</small>
                 {% endfor %}
             </div> 
