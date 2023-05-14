@@ -2,6 +2,57 @@
 
 {% block content %}
 
-<h1> Hello Developers</h1>
 
+<div class=" bg-success-subtle">
+    <div class='container text-center p-5'>
+        <h2>CONNECT WITH <span class='text-success' style="font-weight: 800;">DEVELOPERS</span> <br> FROM AROUND THE WORLD</h2>        
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search By Developer Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn  btn-success" type="button" id="button-addon2">Search</button>
+        </div>
+          
+    </div>
+
+</div>
+<div class="container mt-3">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        {% for profile in profiles %}
+        <div class="col ">
+            <a class="text-decoration-none " href="#" >
+          <div class="card h-100 ">
+            <div class='card-header'>
+                <div class='d-flex align-items-center'>
+                    <div>
+                        <img src="{{ profile.profile_image.url}}" class="rounded-circle" style="width: 75px;" alt="Avatar" />
+                    </div>
+                    <div class='ps-3'>
+                        <h5 class="text-success card-title ">{{profile.name}}</h5>
+                        <h6 class='text-secondary'>{{ profile.short_intro }}</h6>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="card-body">
+              <p class="text-secondary">
+                {{ profile.bio|slice:"150" }}
+              </p>
+            </div>
+            </a>
+
+            <div class="card-footer">
+                {% for skill in profile.skill_set.all %}
+                <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{skill.name}}</small>
+                {% endfor %}
+            </div> 
+      
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+    
+    
+   
 {% endblock content %}
