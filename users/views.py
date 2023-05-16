@@ -1,13 +1,15 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 from .models import Profile
 
 
 def loginUser(request):
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('profiles')
 
@@ -18,7 +20,7 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
-            messages.error(request,'User does not exist')
+            messages.error(request, 'User does not exist')
 
         user = authenticate(request, username=username, password=password)
 
@@ -26,14 +28,36 @@ def loginUser(request):
             login(request, user)
             return redirect('profiles')
         else:
-            messages.error(request,"Password is incorrect")
+            messages.error(request, "Password is incorrect")
 
     return render(request, 'users/login-register.html')
 
+
 def logoutUser(request):
     logout(request)
-    messages.error(request,"User are logged out successefully !")
+    messages.error(request, "User are logged out successefully !")
     return redirect('login')
+
+
+def registerUser(request):
+    page = 'register'
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'User account has created successfully ! ')
+
+
+    context = {
+        'page': page,
+        'form': form
+    }
+    return render(request, 'users/login-register.html', context)
 
 
 def profiles(request):
