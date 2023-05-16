@@ -17,7 +17,11 @@
             {% for field in form %}
                 <div class="mb-3 form-group">
                 <label for="input" class="form-label">{{field.label}}</label>
-                    {{field}}                
+                    {{field}}    
+                    
+                    {% for error in field.errors %}
+                    <p class='text-danger'>{{error}}</p>
+                    {% endfor %}
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-success mt-1 w-25">Register</button>
