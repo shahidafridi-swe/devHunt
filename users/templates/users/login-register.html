@@ -1,26 +1,33 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card bg-success-subtle">
-        <div class="card-header">Login</div>
+        
         <div class="card-body">
 
           {% if page == 'register' %}
 
-          <h1>Register</h1>
-          <form action=" {% url 'register' %}" method='POST'>
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Register">
+          <form method="POST" action="{% url 'register' %}">
+          <h4>REGISTER AN ACCOUNT</h4><hr>
 
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3 form-group">
+                <label for="input" class="form-label">{{field.label}}</label>
+                    {{field}}                
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success mt-1 w-25">Register</button>
           </form>
-          <p>If already you have an account, <a href="{% url 'login' %}">login</a> here.</p>
+
+          <p>If already you have an account, <a class='text-decoration-none' href="{% url 'login' %}">login</a> here.</p>
 
           {% else %}
           <form method="POST" action="{% url 'login' %}">
+            <h2>LOGIN</h2><hr>
             {% csrf_token %}
             <div class="form-group">
               <label for="username">Username</label>
@@ -30,10 +37,10 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn btn-success mt-3 w-25">Login</button>
+            <button type="submit" class="btn btn-success mt-1 w-25">Login</button>
 
           </form>
-          <p>If you don't have an account, <a href="{% url 'register' %}">register</a> here.</p>
+          <p >If you don't have an account, <a class='text-decoration-none' href="{% url 'register' %}">register</a> here.</p>
           {% endif %}
 
         </div>
