@@ -68,7 +68,7 @@
                     <div class="d-flex justify-content-between">
                         
                         <h3>PROJECTS</h3>
-                        <a class="btn btn-outline-success mb-1 border-0" href="{% url 'register' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add Project</a>
+                        <a class="btn btn-outline-success mb-1 border-0" href="{% url 'create-project' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add Project</a>
                     </div>
 
                     <hr>
@@ -85,8 +85,8 @@
                                         <div class='d-flex justify-content-between'>
                                             <h5 class="text-success card-title ">{{project.title}}</h5>
                                             <div>
-                                            <a class="btn btn-outline-success p-1 mx-1" href="#"><i class="fa fa-edit" ></i></a>
-                                            <a class="btn btn-outline-danger p-1 mx-1" href="# "><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <a class="btn btn-outline-success p-1 mx-1" href="{% url 'update-project' project.id %}"><i class="fa fa-edit" ></i></a>
+                                            <a class="btn btn-outline-danger p-1 mx-1" href="{% url 'delete-project' project.id %} "><i class="fa fa-trash" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
 
