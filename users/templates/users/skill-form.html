@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<div class='bg-light'>
+    <div class='container d-flex justify-content-center py-3'>
+        <div class="card w-75 bg-success-subtle">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title">Add A Skill</h5>
+                <a class='btn btn-outline-success rounded-pill'  href="{% url 'account' %}"> &#10094 </a>
+            </div>
+            <div class="card-body ">                        
+                <form method="POST" >
+                    {% csrf_token %}
+    
+                    {% for field in form %}
+                    <div class="mb-3 form-group">
+                    <label for="input" class="form-label">{{field.label}}</label>
+                        {{field}}                
+                    </div>
+                    {% endfor %}
+                    <input class='btn btn-outline-success w-100' type="submit" value="SUBMIT">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
