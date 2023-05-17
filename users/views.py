@@ -114,6 +114,7 @@ def editAccount(request):
     }
     return render(request, 'users/profile-form.html', context)
 
+
 @login_required(login_url='login')
 def createSkill(request):
     profile = request.user.profile
@@ -129,25 +130,39 @@ def createSkill(request):
             return redirect('account')
 
     context = {
-        'form':form
+        'form': form
     }
-    return render(request, 'users/skill-form.html',context)
-
+    return render(request, 'users/skill-form.html', context)
 
 
 @login_required(login_url='login')
-def updateSkill(request,pk):
+def updateSkill(request, pk):
     profile = request.user.profile
     skill = profile.skill_set.get(id=pk)
     form = SkillForm(instance=skill)
     if request.method == 'POST':
-        form = SkillForm(request.POST, instance= skill)
+        form = SkillForm(request.POST, instance=skill)
         if form.is_valid:
             form.save()
             messages.success(request, 'Your skill has updated successfully !')
             return redirect('account')
 
     context = {
-        'form':form
+        'form': form
     }
-    return render(request, 'users/skill-form.html',context)
+    return render(request, 'users/skill-form.html', context)
+
+
+@login_required(login_url='login')
+def deleteSkill(request, pk):
+    profile = request.user.profile
+    skill = profile.skill_set.get(id=pk)
+    if request.method == 'POST':
+        skill.delete()
+        messages.success(request, 'Skill has deleted successfully !')
+        return redirect('account')
+
+    context = {
+        'object': skill
+    }
+    return render(request, 'delete-template.html',context)
