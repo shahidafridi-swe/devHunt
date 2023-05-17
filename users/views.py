@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from .models import Profile
 
 
@@ -49,14 +49,14 @@ def registerUser(request):
             user.username = user.username.lower()
             user.save()
 
-            messages.success(request, 'User account has created successfully ! ')
+            messages.success(
+                request, 'User account has created successfully ! ')
 
             login(request, user)
-            return redirect('profiles')
+            return redirect('edit-account')
         else:
-            messages.error(request, 'An error has occured in registration. Try again with correct information. ')
-
-
+            messages.error(
+                request, 'An error has occured in registration. Try again with correct information. ')
 
     context = {
         'page': page,
@@ -84,3 +84,32 @@ def profile(request, pk):
         'otherskills': otherskills
     }
     return render(request, 'users/profile.html', context)
+
+
+@login_required(login_url='login')
+def userAccount(request):
+    profile = request.user.profile
+    skills = profile.skill_set.all()
+
+    context = {
+        'profile': profile,
+        'skills': skills,
+    }
+    return render(request, 'users/account.html', context)
+
+
+@login_required(login_url='login')
+def editAccount(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+
+            return redirect('account')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'users/profile-form.html', context)

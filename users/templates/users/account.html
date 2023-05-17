@@ -1,0 +1,118 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container text-center mt-3">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-4">
+            <div class="card text-center mb-3" >
+                <div class="card-body bg-light">
+                    <div class='d-flex justify-content-end'>
+                        <a class="btn btn-outline-success border-0 p-1 mx-1" href="{% url 'edit-account' %}"><i class="fa fa-edit" ></i></a>
+                    </div>
+                    <img src="{{ profile.profile_image.url}}" class="rounded-circle w-75"  alt="Avatar" />
+                    <hr>
+                    <h3 class="card-title text-success">{{profile.name}}</h3>
+                    <h6 class="card-text">{{ profile.short_intro }}</h6>
+                    <p class="card-text">{{profile.location}}</p>
+                    <hr>
+
+                    <a href="#" class='text-dark mx-1'><i class="fa fa-github" style="font-size:36px"></i></a>
+                    <a href="#" class='text-primary mx-1'><i class="fa fa-twitter" style="font-size:36px"></i></a>
+                    <a href="#" class='text-danger mx-1'><i class="fa fa-youtube-play" style="font-size:36px"></i></i></a>
+                    <a href="#" class='text-primary mx-1'><i class="fa fa-linkedin" style="font-size:36px"></i></a>
+                    <a href="#" class='text-dark mx-1'><i class="fa fa-globe" style="font-size:36px"></i></i></a>
+                    
+                    <hr>
+                    <a href="#" class="btn btn-success">Send Message</a>
+                </div>
+              </div>     
+          </div>
+
+
+            <div class="col-12 col-sm-12 col-md-8 ps-5 text-start">
+                {% comment %} about part {% endcomment %}
+                <div>
+                    <hr>
+                    <h3>ABOUT ME</h3>
+                    <p>{{ profile.bio}}</p>
+                    <hr><hr>
+                </div>
+                
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h3>SKILLS</h3>
+                        <a class="btn btn-outline-success mb-1 border-0" href="{% url 'register' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add Skill</a>
+                      </div>
+                      <hr>
+                    {% for skill in skills %}
+                    <div class="row text-secondary ">
+                        <div class="col-2 d-flex align-items-center justify-content-center mb-3">
+                            <a class="btn btn-outline-success p-1 mx-1" href="#"><i class="fa fa-edit" ></i></a>
+                            <a class="btn btn-outline-danger p-1 mx-1" href="# "><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-10">
+                            <h6>{{ skill.name }}</h6>
+                            <p>{{ skill.description }}</p>
+                        </div>
+                        <hr>
+                    </div>
+
+                    {% endfor %}
+                    
+                </div>
+
+
+                <div class='mt-3'>
+                  
+                    <div class="d-flex justify-content-between">
+                        
+                        <h3>PROJECTS</h3>
+                        <a class="btn btn-outline-success mb-1 border-0" href="{% url 'register' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add Project</a>
+                    </div>
+
+                    <hr>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                        {% for project in profile.project_set.all %}
+                        
+                        <div class="col">
+                            <a class="text-decoration-none " href="{% url 'single-project' project.id %}" >
+                                <div class="card h-100 ">
+                                    <img src="{{project.featured_image.url}}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <div class='d-flex justify-content-between'>
+                                            <h5 class="text-success card-title ">{{project.title}}</h5>
+                                            <div>
+                                            <a class="btn btn-outline-success p-1 mx-1" href="#"><i class="fa fa-edit" ></i></a>
+                                            <a class="btn btn-outline-danger p-1 mx-1" href="# "><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <p><a class="text-decoration-none" href="{% url 'profile' project.owner.id %}">By {{ project.owner.name }}</a></p>
+                                        <p class="">
+                                            <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
+                                            Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
+                                        </p>
+                                    </div>
+                        
+                                    <div class="card-footer">
+                                        {% for tag in project.tags.all|slice:"3" %}
+                                            <small class="border border-1 py-1 px-3  bg-success-subtle text-body-secondary rounded-pill">{{tag.name}}</small>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
