@@ -48,7 +48,7 @@
                     {% for skill in skills %}
                     <div class="row text-secondary ">
                         <div class="col-2 d-flex align-items-center justify-content-center mb-3">
-                            <a class="btn btn-outline-success p-1 mx-1" href="#"><i class="fa fa-edit" ></i></a>
+                            <a class="btn btn-outline-success p-1 mx-1" href="{% url 'update-skill' skill.id %}"><i class="fa fa-edit" ></i></a>
                             <a class="btn btn-outline-danger p-1 mx-1" href="# "><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </div>
                         <div class="col-10">
