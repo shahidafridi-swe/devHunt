@@ -3,8 +3,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Q
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
-from .models import Profile
+from .models import Profile, Skill
 
 
 def loginUser(request):
@@ -66,9 +67,21 @@ def registerUser(request):
 
 
 def profiles(request):
-    profiles = Profile.objects.all()
+    search_query = ''
+
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+
+    skills = Skill.objects.filter(name__icontains=search_query)
+
+    profiles = Profile.objects.distinct().filter(
+        Q(name__icontains=search_query) |
+        Q(short_intro__icontains=search_query) |
+        Q(skill__in=skills)
+    )
     context = {
-        'profiles': profiles
+        'profiles': profiles,
+        'search_query':search_query
     }
     return render(request, 'users/profiles.html', context)
 
