@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from .models import Profile, Skill
+from .utils import searchProfiles
 
 
 def loginUser(request):
@@ -67,21 +68,10 @@ def registerUser(request):
 
 
 def profiles(request):
-    search_query = ''
-
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-
-    skills = Skill.objects.filter(name__icontains=search_query)
-
-    profiles = Profile.objects.distinct().filter(
-        Q(name__icontains=search_query) |
-        Q(short_intro__icontains=search_query) |
-        Q(skill__in=skills)
-    )
+    profiles, search_query = searchProfiles(request)
     context = {
         'profiles': profiles,
-        'search_query':search_query
+        'search_query': search_query
     }
     return render(request, 'users/profiles.html', context)
 
@@ -178,4 +168,4 @@ def deleteSkill(request, pk):
     context = {
         'object': skill
     }
-    return render(request, 'delete-template.html',context)
+    return render(request, 'delete-template.html', context)
