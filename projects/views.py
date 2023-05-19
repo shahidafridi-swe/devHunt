@@ -1,37 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import Project, Tag
 from .form import ProjectForm
-from .utils import searchProject
+from .utils import searchProject, paginateProjects
 
 
 def projects(request):
     projects,search_query = searchProject(request)
-
-    page = request.GET.get('page')
-    results = 3
-    paginator = Paginator(projects, results)
-
-    try:
-        projects = paginator.page(page)
-    except PageNotAnInteger:
-        page=1
-        projects = paginator.page(page)
-    except EmptyPage:
-        page = paginator.num_pages
-        projects = paginator.page(page)
-
-    leftIndex = (int(page)-4)
-    if leftIndex < 1:
-        leftIndex = 1
-    rightIndex = (int(page)+5)
-    if rightIndex > paginator.num_pages:
-        rightIndex = paginator.num_pages + 1
-
-    custom_range = range(leftIndex, rightIndex)
-
+    projects, custom_range, paginator = paginateProjects(request, projects, 6)
     context = {
         'projects': projects,
         'search_query':search_query,
