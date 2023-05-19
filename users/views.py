@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from .models import Profile, Skill
-from .utils import searchProfiles
+from .utils import searchProfiles, paginateProfiles
 
 
 def loginUser(request):
@@ -69,9 +69,13 @@ def registerUser(request):
 
 def profiles(request):
     profiles, search_query = searchProfiles(request)
+    profiles, custom_range, paginator = paginateProfiles(request, profiles, 3)
+
     context = {
         'profiles': profiles,
-        'search_query': search_query
+        'search_query': search_query,
+        'custom_range':custom_range,
+        'paginator':paginator
     }
     return render(request, 'users/profiles.html', context)
 

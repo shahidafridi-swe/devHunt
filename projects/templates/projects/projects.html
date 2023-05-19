@@ -47,7 +47,7 @@
         {% endfor %}
 
     </div>
-   {% include 'pagination.html' %}
+   {% include 'pagination.html' with queryset=projects custom_range=custom_range %}
 </div>
     
     
