@@ -4,10 +4,12 @@ import uuid
 
 
 class Project(models.Model):
-    owner = models.ForeignKey(Profile, blank=True, null=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey(
+        Profile, blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    featured_image = models.ImageField(null=True, blank=True, default='default.jpg')
+    featured_image = models.ImageField(
+        null=True, blank=True, default='default.jpg')
     demo_link = models.CharField(max_length=200, null=True, blank=True)
     source_link = models.CharField(max_length=200, null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
@@ -19,7 +21,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         ordering = ['-created_at']
 
