@@ -15,12 +15,50 @@
                 <div class='card p-3 text-start'>
                     <h5 class='font-weight-bold'>ABOUT THE PROJECT</h5>
                     <p>{{project.description}}</p>
-                    <hr>
+                    
+
+                </div>             
+                <div class='card p-3 text-start'>
+                   
                     <h5 class='font-weight-bold'>FEEDBACK</h5>
                     <p class="">
                         <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
                         Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
-                      </p>
+                    </p>
+                    {% if request.user.profile.id in project.reviewers %}
+                        <p>You Have Already Submitted Your Review For This Project</p>
+                    {% elif request.user.profile == project.owner %}
+                        <p>You Can't Review For Your Own Project</p>
+                    {% elif request.user.is_authenticated %}
+                    <form action="{% url 'single-project' project.id %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="mb-3 form-group">
+                            <label for="input" class="form-label">{{field.label}}</label>
+                            {{field}} 
+                        </div>
+                        {% endfor %}
+                        <input class="btn btn-success mt-3" type="submit" value="Add Review">
+                    </form>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={{request.path}}"> Please Login For Leave A Review</a>
+                    {% endif %}
+
+                    <div class="comment-list">
+                        {% for review in project.review_set.all %}
+                        <div class="row single-comment border border-1 border-success mt-3 rounded p-2 m-1">
+                            <div class="col-2 d-flex justify-content-center align-items-center border-end">
+                                <div class="">
+                                    <img src="{{ review.owner.profile_image.url}}" class="rounded-circle" style="width: 75px;" alt="Avatar" />
+                                </div>
+                            </div>
+                            <div class="col-10 text-secondary">
+                                <h4>{{review.owner.name}}</h4>
+                                <p>{{review.body|linebreaksbr}}</p>
+                            </div>                        
+                        </div>
+                        {% endfor %}
+                    </div>
 
                 </div>             
           </div>

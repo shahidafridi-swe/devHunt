@@ -30,7 +30,7 @@
           <p>If already you have an account, <a class='text-decoration-none' href="{% url 'login' %}">login</a> here.</p>
 
           {% else %}
-          <form method="POST" action="{% url 'login' %}">
+          <form method="POST" action="">
             <h2>LOGIN</h2><hr>
             {% csrf_token %}
             <div class="form-group">
