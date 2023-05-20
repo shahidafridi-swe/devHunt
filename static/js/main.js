@@ -1,3 +1,4 @@
+// HACKY FIX FOR SEARCH AND PAGINATION COMBINED
 
 //GET SEARCH FORM AND PAGE LINKS
 let searchForm = document.getElementById('searchForm')
@@ -22,3 +23,12 @@ if(searchForm){
     }
 }
 
+
+// For Push Notification (Tostify)
+var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+var toastList = toastElList.map(function(toastEl) {
+        return new bootstrap.Toast(toastEl);
+    });
+    toastList.forEach(function(toast) {
+        toast.show();
+    });
