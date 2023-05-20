@@ -20,8 +20,10 @@
                     <a href="#" class='text-primary mx-1'><i class="fa fa-linkedin" style="font-size:36px"></i></a>
                     <a href="#" class='text-dark mx-1'><i class="fa fa-globe" style="font-size:36px"></i></i></a>
                     
+                    {% if profile.id != request.user.profile.id %}
                     <hr>
-                    <a href="#" class="btn btn-success">Send Message</a>
+                    <a href="{% url 'create-message'  profile.id %}" class="btn btn-success btn-lg">Send Message</a>
+                    {% endif %}
                 </div>
               </div>     
           </div>

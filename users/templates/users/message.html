@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        
+        <div class="card bg-light">
+
+          <div class="card-header bg-success-subtle d-flex justify-content-end align-items-center">
+            <a class='btn btn-outline-success rounded-pill'  href="{% url 'inbox' %}"> &#10094 </a>
+          </div>
+
+          <div class="card-body " >
+            <h2>{{message.subject}}</h2>
+            <h5 class="text-success fst-italic">By {{message.sender.name}}</h5>
+            <p>{{message.created_at}}</p>
+            <hr>
+            <p>{{message.body|linebreaksbr}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
