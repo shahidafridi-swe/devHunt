@@ -6,7 +6,7 @@
 <div class=" bg-success-subtle">
     <div class='container text-center p-5'>
         <h2>CONNECT WITH <span class='text-success' style="font-weight: 800;">DEVELOPERS</span> <br> FROM AROUND THE WORLD</h2>        
-        <form action="{% url 'profiles' %}" method="get">
+        <form id="searchForm" action="{% url 'profiles' %}" method="get">
             <div class="input-group mb-3 m-auto w-75">
                 <input type="text" class="form-control" placeholder="Search By Developer Name" name="search_query" aria-label="Recipient's username" aria-describedby="button-addon2" value={{search_query}} >
 
