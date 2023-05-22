@@ -19,6 +19,12 @@
                 </div>
                 {% endfor %}
 
+                <div class="mb-3 form-group project-tag d-flex">
+                    {% for tag in project.tags.all %}
+                        <div class="border border-success rounded-pill py-1 px-3 m-1 bg-light" data-tag="{{tag.id}}" data-project="{{project.id}}">{{tag.name}} &#215</div>
+                    {% endfor %}
+                </div>
+
                 <div class="mb-3 form-group">
                 <label for="input" class="form-label">Tags</label>
                     <textarea class="form-control" name="newtags" placeholder="Add tags here..."></textarea>
@@ -35,5 +41,16 @@
 </div>
 
 </div>
+
+{% comment %} <script>
+    let tags =document.getElementsByClassName('project-tag')
+
+    for(let i=0; tags.length > i ; i++){
+        tags[i].addEventListener('click', (e)=>{
+            let tagId = e.target.dataset.tag
+            let projectId = e.target.dataset.project
+        })
+    }
+</script> {% endcomment %}
 
 {% endblock content %}
