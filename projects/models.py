@@ -5,7 +5,7 @@ import uuid
 
 class Project(models.Model):
     owner = models.ForeignKey(
-        Profile, blank=True, null=True, on_delete=models.SET_NULL)
+        Profile, blank=True, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(
