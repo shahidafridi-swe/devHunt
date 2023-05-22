@@ -14,7 +14,13 @@
 
           <div class="card-body " >
             <h2>{{message.subject}}</h2>
-            <h5 class="text-success fst-italic">By {{message.sender.name}}</h5>
+            {% if message.sender %}
+            <h5 class="fst-italic">By <a href="{% url 'profile' message.sender.id %}" class="text-decoration-none text-success ">{{message.sender.name}}</a></h5>
+            {% else %}
+            <h5 class="text-success fst-italic" >By {{message.name}}</h5>
+            
+            
+            {% endif %}
             <p>{{message.created_at}}</p>
             <hr>
             <p>{{message.body|linebreaksbr}}</p>
