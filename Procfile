@@ -1,0 +1,1 @@
+web: gunicorn devHunt.wsgi --log-file -
