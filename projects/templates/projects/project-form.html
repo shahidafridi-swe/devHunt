@@ -5,8 +5,16 @@
 <div class='container d-flex justify-content-center py-3'>
     <div class="card w-75 bg-success-subtle">
         <div class="card-header">
-          <h3 class="card-title text-center">ADD A PROJECT</h3>
-        </div>
+            <div class='d-flex justify-content-between align-items-center'>
+              {% if page == 'create-project' %}
+              <h4 class='text-uppercase '>Add a new project</h4>
+              <a class='btn btn-outline-success rounded-pill'  href="{% url 'account' %}"> &#10094 </a>
+              {% elif page == 'update-project' %}
+              <h4 class='text-uppercase '>Update the <span class="text-success">{{project.title}}</span> project</h4>
+              <a class='btn btn-outline-success rounded-pill'  href="{% url 'account' %}"> &#10094 </a>
+              {% endif %}
+              </div>
+          </div>
         <div class="card-body ">
                     
             <form method="POST" enctype="multipart/form-data">

@@ -42,10 +42,9 @@ def project(request, pk):
 
 @login_required(login_url='login')
 def createProject(request):
+    page = 'create-project'
     profile = request.user.profile
-
     form = ProjectForm()
-    
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         newtags = request.POST.get('newtags').replace(',', ' ').split()
@@ -58,12 +57,13 @@ def createProject(request):
                 project.tags.add(tag)
             return redirect('account')
 
-    context = {'form': form}
+    context = {'form': form, 'page':page}
     return render(request, 'projects/project-form.html', context)
 
 
 @login_required(login_url='login')
 def updateProject(request, pk):
+    page = 'update-project'
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
     form = ProjectForm(instance=project)
@@ -78,7 +78,8 @@ def updateProject(request, pk):
             return redirect('account')
     context = {
         'form': form,
-        'project':project
+        'project': project,
+        'page':page
     }
     return render(request, 'projects/project-form.html', context)
 
