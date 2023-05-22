@@ -1,17 +1,24 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
-<p>Are you sure? You want to delete {{ object }}.</p>
-
-
-<form action="" method='POST'>
-    {% csrf_token %}
-    <a class= "btn btn-success" href="{{request.GET.next}}">Back</a>
-    <input class="btn btn-danger" type="submit" value="Confirm Delete">
-
-
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="card bg-success-subtle">
+            <div class="card-header">
+            <h3>Are you sure, you want to delete <span class="text-success">{{ object }}</span> ?</h3>
+            </div>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+                <a class='btn btn-success' href="{{request.GET.next}}">Back</a>              
+                <button type="submit" class="btn btn-danger ">Confirm Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 {% endblock content %}
